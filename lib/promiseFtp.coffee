@@ -23,6 +23,8 @@ simplePassthroughMethods = [
   'rename'
   'listSafe'
   'list'
+  'nlistSafe'
+  'nlist'
   'get'
   'put'
   'append'
@@ -59,7 +61,7 @@ class PromiseFtp
   constructor: () ->
     if @ not instanceof PromiseFtp
       throw new TypeError("PromiseFtp constructor called without 'new' keyword")
-    
+
     connectionStatus = STATUSES.NOT_YET_CONNECTED
     client = new FtpClient()
     @rawClient = client
@@ -72,8 +74,8 @@ class PromiseFtp
     unexpectedClose = null
     autoReconnectPromise = null
     promisifiedClientMethods = {}
-    
-    
+
+
     # always-on event handlers
     client.on 'error', (err) ->
       lastError = err
@@ -83,8 +85,8 @@ class PromiseFtp
       unexpectedClose = (connectionStatus != STATUSES.DISCONNECTING && connectionStatus != STATUSES.LOGGING_OUT)
       connectionStatus = STATUSES.DISCONNECTED
       autoReconnectPromise = null
-      
-    
+
+
     # internal connect logic
     _connect = (tempStatus) -> new Promise (resolve, reject) ->
       connectionStatus = tempStatus
@@ -103,10 +105,10 @@ class PromiseFtp
       client.once('ready', onReady)
       client.once('error', onError)
       client.connect(connectOptions)
-    
-      
+
+
     # methods listed in otherPrototypeMethods, which don't get a wrapper
-    
+
     @connect = (options) -> Promise.try () ->
       if connectionStatus != STATUSES.NOT_YET_CONNECTED && connectionStatus != STATUSES.DISCONNECTED
         throw new FtpConnectionError("can't connect when connection status is: '#{connectionStatus}'")
@@ -126,7 +128,7 @@ class PromiseFtp
       delete connectOptions.preserveCwd
       # now that everything is set up, we can connect
       _connect(STATUSES.CONNECTING)
-  
+
     @reconnect = () -> Promise.try () ->
       if connectionStatus != STATUSES.NOT_YET_CONNECTED && connectionStatus != STATUSES.DISCONNECTED
         throw new FtpConnectionError("can't reconnect when connection status is: '#{connectionStatus}'")
@@ -148,7 +150,7 @@ class PromiseFtp
       client.once 'close', (hadError) ->
         resolve(if hadError then lastError||true else false)
       client.end()
-  
+
     @destroy = () ->
       if connectionStatus == STATUSES.NOT_YET_CONNECTED || connectionStatus == STATUSES.DISCONNECTED
         wasDisconnected = true
@@ -161,9 +163,9 @@ class PromiseFtp
     @getConnectionStatus = () ->
       connectionStatus
 
-    
+
     # methods listed in complexPassthroughMethods, which will get a common logic wrapper
-    
+
     @site = (command) ->
       promisifiedClientMethods.site(command)
       .then (result) ->
@@ -185,7 +187,7 @@ class PromiseFtp
         intendedCwd = path.join(intendedCwd, '..')
         result
 
-    
+
     # common promise, connection-check, and reconnect logic
     commonLogicFactory = (name, handler) ->
       promisifiedClientMethods[name] = Promise.promisify(client[name], client)
@@ -223,7 +225,7 @@ class PromiseFtp
     for name in complexPassthroughMethods
       @[name] = commonLogicFactory(name, @[name])
 
-  
+
   # set method names on the prototype; they'll be overwritten with real functions from inside the constructor's closure
   for methodList in [simplePassthroughMethods, complexPassthroughMethods, otherPrototypeMethods]
     for methodName in methodList
