@@ -3,7 +3,7 @@
   "description": "a promise-based ftp client for node.js",
   "version": "1.3.3",
   "main": "index.js",
-  "author": "RealtyMaps",
+  "author": "Tomohiro Orikasa",
   "contributors": [
     "Joe Ibershoff <joe@realtymaps.com>",
     "Moti Zilberman <motiz88@gmail.com>"
@@ -14,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/realtymaps/promise-ftp"
+    "url": "https://github.com/tomohiroorikasa/promise-ftp"
   },
   "keywords": [
     "ftp",
@@ -35,7 +35,7 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/realtymaps/promise-ftp/issues"
+    "url": "https://github.com/tomohiroorikasa/promise-ftp/issues"
   },
   "engines": {
     "node": ">=0.11.13",
