@@ -24,7 +24,7 @@
   ],
   "dependencies": {
     "bluebird": "2.x",
-    "ftp": "0.3.10",
+    "ftp": "github:tomohiroorikasa/node-ftp",
     "promise-ftp-common": "^1.1.5"
   },
   "devDependencies": {
