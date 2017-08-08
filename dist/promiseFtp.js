@@ -22,7 +22,7 @@
 
   STATUSES = require('promise-ftp-common').STATUSES;
 
-  simplePassthroughMethods = ['ascii', 'binary', 'abort', 'delete', 'status', 'rename', 'listSafe', 'list', 'nlistSafe', 'nlist', 'get', 'put', 'append', 'pwd', 'mkdir', 'rmdir', 'system', 'size', 'lastMod', 'restart'];
+  simplePassthroughMethods = ['ascii', 'binary', 'abort', 'delete', 'status', 'rename', 'listSafe', 'list', 'nlistSafe', 'nlist', 'mlistSafe', 'mlist', 'get', 'put', 'append', 'pwd', 'mkdir', 'rmdir', 'system', 'size', 'lastMod', 'restart'];
 
   complexPassthroughMethods = ['site', 'cwd', 'cdup'];
 
