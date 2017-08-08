@@ -25,6 +25,8 @@ simplePassthroughMethods = [
   'list'
   'nlistSafe'
   'nlist'
+  'mlistSafe'
+  'mlist'
   'get'
   'put'
   'append'

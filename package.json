@@ -3,11 +3,11 @@
   "description": "a promise-based ftp client for node.js",
   "version": "1.3.3",
   "main": "index.js",
-  "author": "Tomohiro Orikasa",
-  "contributors": [
-    "Joe Ibershoff <joe@realtymaps.com>",
-    "Moti Zilberman <motiz88@gmail.com>"
-  ],
+  "author": "tomohiroorikasa",
+  "contributors": [{
+    "name": "Tomohiro Orikasa",
+    "email": "tomohiro@ocids.com"
+  }],
   "files": [
     "dist",
     "index.js"
